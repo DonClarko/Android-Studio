@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/animebg"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- CardView wrapping the content -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            android:backgroundTint="@android:color/white">
+
+            <!-- Inner LinearLayout for padding and content arrangement -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:background="@drawable/lavender_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bluetooth Technology"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bluetooth is a wireless technology that allows devices to communicate with each other over short distances without the need for cables or wires. It uses short-range radio frequency to transmit data between devices.\n\nBluetooth is used in many devices, including:\n- Wireless keyboards\n- Wireless headsets\n- Computers\n- Cameras\n- Televisions\n- Home appliances\n- Car navigation and entertainment systems\n- Medical devices\n\nBluetooth devices must be paired before they can transfer information. The pairing process usually involves turning Bluetooth on and off and confirming pairing or entering a passcode.\n\nThe name 'Bluetooth' comes from King Harald “Bluetooth” Gormsson, who united Denmark and Norway in 958."
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch this video on YouTube"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:padding="16dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"
+                    android:id="@+id/bluetooth_button"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

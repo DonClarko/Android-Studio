@@ -1,23 +1,34 @@
 package com.example.compiledact;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Activity8 extends AppCompatActivity {
+
     private Map<String, Integer> countryFlags;
     private ListView countryListView;
+    private CustomAdapter adapter;
+    private List<String> countryList;
+    private CardView flagCardView;
+    private ImageView flagImageView;
+    private EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +36,16 @@ public class Activity8 extends AppCompatActivity {
         setContentView(R.layout.activity8);
 
         countryListView = findViewById(R.id.countryListView);
+        flagCardView = findViewById(R.id.flagCardView);
+        flagImageView = findViewById(R.id.flagImageView);
+        searchBar = findViewById(R.id.searchBar);
 
-        // Initialize country flags
+        // Initialize country flags and country list
         initializeFlags();
+        countryList = new ArrayList<>(countryFlags.keySet());
 
         // Set up custom adapter for ListView
-        CustomAdapter adapter = new CustomAdapter();
+        adapter = new CustomAdapter(countryList);
         countryListView.setAdapter(adapter);
 
         // Handle item clicks
@@ -41,12 +56,25 @@ public class Activity8 extends AppCompatActivity {
                 displayFlag(selectedCountry);
             }
         });
+
+        // Set up search functionality
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                filterCountries(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
     }
 
     private void initializeFlags() {
         countryFlags = new HashMap<>();
-        // Add country flags with their respective resource identifiers
-
+        // Add country flags with their respective resource identifiers (as done in your initial code)
         countryFlags.put("USA", R.drawable.flag_usa);
         countryFlags.put("India", R.drawable.flag_india);
         countryFlags.put("France", R.drawable.flag_france);
@@ -300,34 +328,43 @@ public class Activity8 extends AppCompatActivity {
         countryFlags.put("Yemen", R.drawable.flag_yemen);
         countryFlags.put("Zambia", R.drawable.flag_zambia);
         countryFlags.put("Zimbabwe", R.drawable.flag_zimbabwe);
-
-        // Add more countries as needed
+        // Continue adding flags as per your existing list
     }
 
     private void displayFlag(String country) {
         Integer flagResId = countryFlags.get(country);
-        CardView flagCardView = findViewById(R.id.flagCardView);
-        ImageView flagImageView = findViewById(R.id.flagImageView);
-
         if (flagResId != null) {
-            flagImageView.setImageResource(flagResId);
             flagCardView.setVisibility(View.VISIBLE);
-        } else {
-            flagCardView.setVisibility(View.GONE);
+            flagImageView.setImageResource(flagResId);
         }
     }
 
-    // Custom Adapter for ListView
+    private void filterCountries(String query) {
+        List<String> filteredList = new ArrayList<>();
+        for (String country : countryFlags.keySet()) {
+            if (country.toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(country);
+            }
+        }
+        adapter.updateList(filteredList);
+    }
+
+    // Custom Adapter for the ListView
     private class CustomAdapter extends BaseAdapter {
+        private List<String> countries;
+
+        public CustomAdapter(List<String> countries) {
+            this.countries = countries;
+        }
 
         @Override
         public int getCount() {
-            return countryFlags.size();
+            return countries.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return countryFlags.keySet().toArray()[position];
+            return countries.get(position);
         }
 
         @Override
@@ -342,18 +379,19 @@ public class Activity8 extends AppCompatActivity {
                         .inflate(R.layout.country_item, parent, false);
             }
 
-            String country = (String) getItem(position);
-            Integer flagResId = countryFlags.get(country);
-
-            ImageView flagImageView = convertView.findViewById(R.id.countryFlagImageView);
+            String country = countries.get(position);
             TextView countryNameTextView = convertView.findViewById(R.id.countryNameTextView);
+            ImageView countryFlagImageView = convertView.findViewById(R.id.countryFlagImageView);
 
-            if (flagResId != null) {
-                flagImageView.setImageResource(flagResId);
-            }
             countryNameTextView.setText(country);
+            countryFlagImageView.setImageResource(countryFlags.get(country));
 
             return convertView;
+        }
+
+        public void updateList(List<String> newList) {
+            this.countries = newList;
+            notifyDataSetChanged();
         }
     }
 }

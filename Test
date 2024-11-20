@@ -60,26 +60,25 @@
       }
 
       .description-container {
-        background-color: #ffffff; /* White background for light mode */
-        color: #333333; /* Dark text for better readability */
+        background-color: #ffffff; 
+        color: #333333; 
         border-radius: 10px;
         padding: 1rem;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         margin-left: 330px;
         margin-right: 330px;
         margin-top: 20px;
-    
       }
 
        pre {
-        background-color: #f9f9f9; /* Light gray for readability */
-        color: #333333; /* Dark text for code content */
-        border: 1px solid #ddd; /* Subtle border for separation */
+        background-color: #f9f9f9; 
+        color: #333333; 
+        border: 1px solid #ddd; 
         border-radius: 5px;
         padding: 15px;
-        overflow-x: auto; /* Horizontal scroll for long code lines */
+        overflow-x: auto; 
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-size: 0.9rem; /* Slightly smaller font for code */
+        font-size: 0.9rem; 
       }
 
        .line-numbers-rows {
@@ -87,7 +86,7 @@
       }
 
        .line-numbers .line-numbers-rows > span:before {
-        color: #bbb; /* Light number color for clarity */
+        color: #bbb; 
       }
 
 
@@ -200,13 +199,14 @@
     </form>-->
 
     <div class="description-container">
-      <div class="flex space-x-4 mb-4">
-        <button onclick="toggleContainer('container1')" class="custom-button">About</button>
-        <button onclick="toggleContainer('container2')" class="custom-button">Code</button>
+      <div class="flex justify-center items-center space-x-4 mb-4">
+        <button onclick="toggleContainer('About')" class="custom-button">About</button>
+        <button onclick="toggleContainer('Work')" class="custom-button">How does it work</button>
+        <button onclick="toggleContainer('Learn')" class="custom-button">Learn More</button>
       </div>
 
       <!-- Containers now positioned separately -->
-      <div id="container1" class="hidden">
+      <div id="About" class="hidden">
         <p>
             <b>Bubble Sort</b> is the simplest sorting algorithm that works by repeatedly
             swapping the adjacent elements <b>if they are in the wrong order</b>. This
@@ -255,7 +255,7 @@
     
     
 
-      <div id="container2" class="hidden">
+      <div id="Work" class="hidden">
         <h2 class="text-lg font-bold">JavaScript Bubble Sort</h2>
         <pre class="line-numbers"><code class="language-javascript">
           // JavaScript Bubble Sort
@@ -329,7 +329,7 @@
     <script>
 
        function toggleContainer(containerId) {
-        const containers = ['container1', 'container2'];
+        const containers = ['About', 'Work'];
         containers.forEach((id) => {
           const container = document.getElementById(id);
           if (id === containerId) {
